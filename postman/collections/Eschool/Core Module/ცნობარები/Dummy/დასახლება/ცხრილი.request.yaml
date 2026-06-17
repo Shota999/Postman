@@ -1,0 +1,48 @@
+$kind: http-request
+url: https://dummy-rest-service-eschool.apps.henry.ol.ge/api/settlements
+method: GET
+queryParams:
+  - key: page
+    value: "1"
+    disabled: true
+  - key: size
+    value: "25"
+    disabled: true
+  - key: search
+    value: kakheti
+    disabled: true
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: "let response = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Check if the totalElements is correct\", function () {\r
+
+      \    pm.expect(response.totalElements).to.equal(19);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Check if the first item's name is correct\", function () {\r
+
+      \    pm.expect(response.content[0].name).to.equal(\"კახეთი1\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Check if the second item's name is correct\", function () {\r
+
+      \    pm.expect(response.content[0].name).to.equal(\"კახეთი1\");\r
+
+      });\r
+
+      console.log(2)\r
+
+      \r\n"
+    language: text/javascript
+order: 1000

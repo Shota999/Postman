@@ -1,0 +1,8 @@
+$kind: collection
+scripts:
+  - type: http:beforeRequest
+    code: "pm.variables.set(\"skipTokenCheck\", true);\r
+
+      pm.request.headers.remove(\"Authorization\");"
+    language: text/javascript
+order: 2000

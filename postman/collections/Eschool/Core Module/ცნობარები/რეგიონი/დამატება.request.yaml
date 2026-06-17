@@ -1,0 +1,76 @@
+$kind: http-request
+url: "{{urlCore}}libraries/region"
+method: POST
+queryParams:
+  - key: search
+    value: kakheti
+    disabled: true
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"{{regionName}}\",\r
+
+    \    \"nameEn\": \"{{regionNameEn}}\",\r
+
+    \    \"code\": \"{{regionCode}}\",\r
+
+    \    \"iconRemoved\": true\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "let res = null;\r
+
+      try {\r
+
+      \    res = pm.response.json();\r
+
+      } catch (e) {\r
+
+      \    console.warn(\"პასუხის body ცარიელია ან JSON არ არის:\", e.message);\r
+
+      }\r
+
+      \r
+
+      pm.test(\"სტატუს-კოდი 201 (შეიქმნა)\", () => {\r
+
+      \    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"პასუხის დრო < 2000ms\", () => {\r
+
+      \    pm.expect(pm.response.responseTime).to.be.below(2000);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"itemLibraryId ჩაიჭერა ჯაჭვისთვის\", () => {\r
+
+      \      pm.expect(pm.collectionVariables.get(\"itemLibraryId\")).to.not.be.undefined;\r
+
+      \  });"
+    language: text/javascript
+  - type: beforeRequest
+    code: "const n = Date.now();\r
+
+      const L = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\";\r
+
+      \r
+
+      const code = L[Math.floor(n / 26) % 26] + L[n % 26];\r
+
+      \r
+
+      pm.collectionVariables.set(\"regionCode\", code);\r
+
+      pm.collectionVariables.set(\"regionName\", \"ავტოტესტ_რეგიონი_\" + n.toString().slice(-4));\r
+
+      pm.collectionVariables.set(\"regionNameEn\", \"autotest_region_\" + n.toString().slice(-4));"
+    language: text/javascript
+order: 1000

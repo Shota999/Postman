@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{urlCore}}core/libraries/bank"
+method: POST
+queryParams:
+  - key: search
+    value: kakheti
+    disabled: true
+body:
+  type: json
+  content: "{\r
+
+    \    \"nameEn\": \"{{bankName}}\",\r
+
+    \    \"swiftCode\": \"CRBAGE20\",\r
+
+    \    \"code\": \"{{bankCode}}\",\r
+
+    \    \"iban\": \"KE\",\r
+
+    \    \"iconRemoved\": true\r
+
+    }"
+order: 3000

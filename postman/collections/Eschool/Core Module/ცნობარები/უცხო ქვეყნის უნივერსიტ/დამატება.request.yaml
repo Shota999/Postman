@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{urlCore}}core/libraries/foreign-university"
+method: POST
+queryParams:
+  - key: search
+    value: kakheti
+    disabled: true
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"ტესტ123\",\r
+
+    \    \"nameEn\": \"test12\",\r
+
+    \    \"code\": \"IAU-123215\",\r
+
+    \    \"countryId\": 1024,\r
+
+    \    \"iconRemoved\": true\r
+
+    }"
+order: 2000

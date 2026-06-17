@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{urlCore}}core/libraries/bank/{{itemLibraryId}}"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"სს კრედო ბანკი\",\r
+
+    \    \"nameEn\": \"Credo Bank JSC\",\r
+
+    \    \"swiftCode\": \"CRBAGE23\",\r
+
+    \    \"code\": \"205232238\",\r
+
+    \    \"iban\": \"KI\",\r
+
+    \    \"iconRemoved\": true,\r
+
+    \    \"lastUpdateDate\": \"{{lastUpdateDate}}\"\r
+
+    }"
+order: 4000

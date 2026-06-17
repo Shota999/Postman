@@ -1,0 +1,22 @@
+$kind: http-request
+url: "{{urlCore}}core/libraries/bank/napr?code=205232238"
+method: GET
+queryParams:
+  code: "205232238"
+scripts:
+  - type: afterResponse
+    code: "let response = pm.response.json();\r
+
+      \r
+
+      let nameEn = response.nameEn;\r
+
+      let code = response.code;\r
+
+      \r
+
+      pm.environment.set(\"bankName\", nameEn);\r
+
+      pm.environment.set(\"bankCode\", code);"
+    language: text/javascript
+order: 2000

@@ -1,0 +1,15 @@
+$kind: http-request
+url: https://dummy-rest-service-eschool.apps.henry.ol.ge/api/administrative-divisions
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"nameKa\": \"ადმინისტრაციულიერთეული1\",\r
+
+    \  \"nameEn\": \"admdevision2\",\r
+
+    \  \"code\": \"DV\"\r
+
+    }"
+order: 2000

@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{urlCore}}core/libraries/currency/{{itemLibraryId}}"
+method: DELETE
+order: 5000

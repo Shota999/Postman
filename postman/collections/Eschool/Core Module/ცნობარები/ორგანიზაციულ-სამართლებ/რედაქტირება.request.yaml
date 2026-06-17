@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{urlCore}}core/libraries/legalForm/{{itemLibraryId}}"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"postman1\",\r
+
+    \    \"nameEn\": \"postman1\",\r
+
+    \    \"legalFormId\": \"54\",\r
+
+    \    \"abbreviation\": \"postman\",\r
+
+    \    \"abbreviationEn\": \"postmant\",\r
+
+    \    \"iconRemoved\": true,\r
+
+    \    \"lastUpdateDate\": \"{{lastUpdateDate}}\"\r
+
+    }"
+order: 3000

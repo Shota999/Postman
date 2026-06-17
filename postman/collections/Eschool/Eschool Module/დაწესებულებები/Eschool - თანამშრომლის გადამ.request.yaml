@@ -1,0 +1,14 @@
+$kind: http-request
+name: Eschool - თანამშრომლის გადამოწმება
+url: "{{urlEschool}}institution/institutions/check"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"idNumber\": \"01011084099\"\r
+
+    }"
+auth:
+  type: noauth
+order: 1000

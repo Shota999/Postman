@@ -1,0 +1,15 @@
+$kind: http-request
+url: https://dummy-rest-service-eschool.apps.henry.ol.ge/api/districts/4
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \  \"nameKa\": \"ioijo\",\r
+
+    \  \"nameEn\": \"ioijo\",\r
+
+    \  \"code\": \"OP\"\r
+
+    }"
+order: 3000

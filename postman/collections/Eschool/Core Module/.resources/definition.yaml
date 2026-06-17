@@ -1,0 +1,136 @@
+$kind: collection
+scripts:
+  - type: http:beforeRequest
+    code: "let body = {\r
+
+      \    grant_type: pm.environment.get(\"grant_type\"),\r
+
+      \    client_id: pm.environment.get(\"client_id(Core)\"),\r
+
+      \    client_secret: pm.environment.get(\"client_secret(Core)\"),\r
+
+      \    username: pm.environment.get(\"username\"),\r
+
+      \    password: pm.environment.get(\"password\")\r
+
+      };\r
+
+      \r
+
+      if (!tokenIsValid()) {\r
+
+      \    console.warn(\"ტოკენი არავალიდურია. ვიწყებ განახლებას...\");\r
+
+      \r
+
+      \    pm.sendRequest({\r
+
+      \        url: 'https://kc-test.emis.ge/realms/eschool-dev/protocol/openid-connect/token',\r
+
+      \        method: 'POST',\r
+
+      \        header: [\r
+
+      \            { key: 'Content-Type', value: 'application/x-www-form-urlencoded' }\r
+
+      \        ],\r
+
+      \        body: {\r
+
+      \            mode: 'urlencoded',\r
+
+      \            urlencoded: [\r
+
+      \                { key: 'grant_type', value: body.grant_type },\r
+
+      \                { key: 'client_id', value: body.client_id },\r
+
+      \                { key: 'client_secret', value: body.client_secret },\r
+
+      \                { key: 'username', value: body.username },\r
+
+      \                { key: 'password', value: body.password }\r
+
+      \            ]\r
+
+      \        }\r
+
+      \    }, function (err, res) {\r
+
+      \        if (err) { console.error(\"Request error:\", err); return; }\r
+
+      \r
+
+      \        // console.log(\"Status:\", res.code);\r
+
+      \        // console.log(\"Body:\", res.text());\r
+
+      \        // console.log('client_id:', pm.environment.get(\"client_id\"));\r
+
+      \        // console.log('client_secret:', pm.environment.get(\"client_secret\"));\r
+
+      \        if (res.code !== 200) { console.error(\"Login failed! Status:\", res.code); return; }\r
+
+      \r
+
+      \        const json = res.json();\r
+
+      \        if (!json.access_token) { console.error(\"No access_token!\", json); return; }\r
+
+      \r
+
+      \        pm.environment.set('coreToken', json.access_token);\r
+
+      \        pm.environment.set('coreTokenExpiry', Date.now() + json.expires_in * 1000);\r
+
+      \r
+
+      \        // Set header here too, inside callback\r
+
+      \        pm.request.headers.upsert({\r
+
+      \            key: 'Authorization',\r
+
+      \            value: 'Bearer ' + json.access_token\r
+
+      \        });\r
+
+      \    });\r
+
+      \r
+
+      } else {\r
+
+      \    // Fixed - use pm.environment.get instead of json.access_token\r
+
+      \    const token = pm.environment.get('coreToken');\r
+
+      \    // console.log(\"ტოკენი ვალიდურია:\", token);\r
+
+      \r
+
+      \    pm.request.headers.upsert({\r
+
+      \        key: 'Authorization',\r
+
+      \        value: 'Bearer ' + token\r
+
+      \    });\r
+
+      }\r
+
+      \r
+
+      function tokenIsValid() {\r
+
+      \    let token = pm.environment.get('coreToken');\r
+
+      \    let expiry = pm.environment.get('coreTokenExpiry');\r
+
+      \    if (!token || !expiry) return false;\r
+
+      \    return Date.now() < parseInt(expiry);\r
+
+      }"
+    language: text/javascript
+order: 1000

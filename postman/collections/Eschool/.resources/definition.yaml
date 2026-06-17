@@ -1,0 +1,75 @@
+$kind: collection
+variables:
+  - key: urlEschool
+    value: ""
+    disabled: true
+    secret: false
+  - key: urlCore
+    value: ""
+    disabled: true
+    secret: false
+  - key: eschoolToken
+    value: ""
+    disabled: true
+    secret: false
+  - key: coreToken
+    value: ""
+    disabled: true
+    secret: false
+  - key: grant_type
+    value: ""
+    disabled: true
+    secret: false
+  - key: cliend_id(Eschool)
+    value: ""
+    disabled: true
+    secret: false
+  - key: client_secret(Eschool)
+    value: ""
+    disabled: true
+    secret: false
+  - key: client_id(Core)
+    value: ""
+    disabled: true
+    secret: false
+  - key: client_secret(Core)
+    value: ""
+    disabled: true
+    secret: false
+  - key: username
+    value: ""
+    disabled: true
+    secret: false
+  - key: password
+    value: ""
+    disabled: true
+    secret: false
+  - key: eschoolTokenExpiry
+    value: ""
+    disabled: true
+    secret: false
+  - key: coreTokenExpiry
+    value: ""
+    disabled: true
+    secret: false
+  - key: regionCode
+    value: ""
+    secret: false
+  - key: regionName
+    value: ""
+    secret: false
+  - key: regionNameEn
+    value: ""
+    secret: false
+  - key: targetStatus
+    value: ""
+    secret: false
+  - key: expectedStatus
+    value: ""
+    secret: false
+  - key: itemLibraryId
+    value: ""
+    secret: false
+  - key: lastUpdateDate
+    value: ""
+    secret: false

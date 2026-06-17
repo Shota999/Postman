@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{urlEschool}}admin/libraries/sen-categories/{{itemId}}"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"ტესტooo231\",\r
+
+    \    \"nameEn\": \"tesafasas4sds\",\r
+
+    \    \"lastUpdateDate\": \"{{lastUpdateDate}}\"\r
+
+    }"
+order: 3000

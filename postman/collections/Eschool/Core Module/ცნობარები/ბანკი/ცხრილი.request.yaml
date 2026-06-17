@@ -1,0 +1,58 @@
+$kind: http-request
+url: "{{urlCore}}core/libraries/bank?orderBy=id:asc"
+method: GET
+queryParams:
+  - key: page
+    value: "1"
+    disabled: true
+  - key: size
+    value: "25"
+    disabled: true
+  - key: orderBy
+    value: id:asc
+  - key: search
+    value: kakheti
+    disabled: true
+scripts:
+  - type: afterResponse
+    code: "let response = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Check if the totalElements is correct\", function () {\r
+
+      \    pm.expect(response.totalElements).to.equal(5);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Check if the first item's name is correct\", function () {\r
+
+      \    pm.expect(response.content[3].name).to.equal(\"კახეთი1\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Check if the second item's name is correct\", function () {\r
+
+      \    pm.expect(response.content[3].name).to.equal(\"კახეთი1\");\r
+
+      });\r
+
+      console.log(2);\r
+
+      \r
+
+      // let id = response.content[6].id;\r
+
+      // let updateDate = response.content[6].lastUpdateDate;\r
+
+      \r
+
+      // pm.environment.set(\"recourceCentersId\", id);\r
+
+      // pm.environment.set(\"lastUpdateDate\", updateDate);"
+    language: text/javascript
+order: 1000

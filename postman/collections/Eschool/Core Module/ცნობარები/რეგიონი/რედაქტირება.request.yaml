@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{urlCore}}libraries/region/{{itemLibraryId}}"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"axli62372\",\r
+
+    \    \"nameEn\": \"axali6252\",\r
+
+    \    \"code\": \"XI\",\r
+
+    \    \"iconRemoved\": true,\r
+
+    \    \"lastUpdateDate\": \"{{lastUpdateDate}}\"\r
+
+    }"
+order: 3000

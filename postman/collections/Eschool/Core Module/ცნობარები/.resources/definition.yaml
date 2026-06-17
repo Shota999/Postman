@@ -1,0 +1,179 @@
+$kind: collection
+scripts:
+  - type: http:beforeRequest
+    code: "const baseUrl = pm.environment.get('urlCore');\r
+
+      const token = pm.environment.get('coreToken');\r
+
+      const currentUrl = pm.request.url.toString();\r
+
+      \r
+
+      const endpointMap = {\r
+
+      \    'region': 'libraries/region?orderBy=id:asc',\r
+
+      \    // 'municipalities': 'libraries/municipalities?orderBy=id:asc',\r
+
+      \    // 'districts': 'libraries/districts?orderBy=id:asc',\r
+
+      \    // 'administrative-units': 'libraries/administrative-units?orderBy=id:asc',\r
+
+      \    // 'settlements': 'libraries/settlements?orderBy=id:asc',\r
+
+      \    'resource-center': 'libraries/resource-centers?orderBy=id:asc',\r
+
+      \    'foreign-university': 'libraries/foreign-university?orderBy=id:asc',\r
+
+      \    'legalForm': 'libraries/legalForm?orderBy=id:asc',\r
+
+      \    'bank': 'libraries/bank?orderBy=id:asc',\r
+
+      \    'currency': 'libraries/currency?orderBy=id:asc',\r
+
+      \    'postal-codes': 'libraries/postal-codes?orderBy=id:asc',\r
+
+      \r
+
+      };\r
+
+      \r
+
+      if (pm.request.method !== 'PUT' && pm.request.method !== 'PATCH') return;\r
+
+      \r
+
+      // if (pm.variables.get(\"skipTokenCheck\")) {\r
+
+      //     pm.variables.unset(\"skipTokenCheck\");\r
+
+      //     console.log(\"Skipping token check\");\r
+
+      //     return;\r
+
+      // }\r
+
+      \r
+
+      const matchedKey = Object.keys(endpointMap).find(key => currentUrl.includes(key));\r
+
+      \r
+
+      if (!matchedKey) {\r
+
+      \    console.log(\"No matching endpoint for:\", currentUrl);\r
+
+      \    return;\r
+
+      }\r
+
+      \r
+
+      const getUrl = baseUrl + endpointMap[matchedKey];\r
+
+      console.log(\"Fetching:\", getUrl);\r
+
+      \r
+
+      pm.sendRequest({\r
+
+      \    url: getUrl,\r
+
+      \    method: 'GET',\r
+
+      \    header: [\r
+
+      \        { key: 'Authorization', value: 'Bearer ' + token }\r
+
+      \    ]\r
+
+      }, function (err, res) {\r
+
+      \    if (err) { console.error(\"Error:\", err); return; }\r
+
+      \    try {\r
+
+      \        console.log(res)\r
+
+      \        const json = res.json();\r
+
+      \r
+
+      \        if (!json.content || json.content.length === 0) {\r
+
+      \            console.error(\"No content!\"); return;\r
+
+      \        }\r
+
+      \        // const sorted = json.content.sort((a, b) => a.id - b.id);\r
+
+      \        const lastElement = json.content[json.content.length - 1];\r
+
+      \        pm.environment.set(\"itemLibraryId\", lastElement.id);\r
+
+      \        // pm.environment.set('recourceCentersId', lastElement.id);\r
+
+      \        console.log(lastElement)\r
+
+      \        pm.environment.set('lastUpdateDate', lastElement.lastUpdateDate || lastElement.dateAdded);\r
+
+      \        console.log(1)\r
+
+      \    } catch (e) {\r
+
+      \        console.error(\"Failed to parse JSON:\", e);\r
+
+      \    }\r
+
+      });"
+    language: text/javascript
+  - type: http:afterResponse
+    code: "// const json = pm.response.json();\r
+
+      const url = pm.request.url.toString();\r
+
+      \r
+
+      if (!url.includes('?page')) return;\r
+
+      \r
+
+      const text = pm.response.body();\r
+
+      if (!text || text.trim() === '') return;\r
+
+      \r
+
+      try {\r
+
+      \    if (pm.response) {\r
+
+      \        const json = pm.response.json();\r
+
+      \r
+
+      \        if (!json.content || json.content.length === 0) return;\r
+
+      \r
+
+      \        // const sorted = json.content.sort((a, b) => b.id - a.id);\r
+
+      \        const lastElement = sorted[sorted.length - 1];\r
+
+      \r
+
+      \        pm.environment.set('lastUpdateDate', lastElement.lastUpdateDate);\r
+
+      \        console.log(\"lastUpdateDate:\", lastElement.lastUpdateDate);\r
+
+      \    }\r
+
+      \r
+
+      } catch (e) {\r
+
+      \    console.error(\"Failed to parse JSON:\", e);\r
+
+      }"
+    language: text/javascript
+order: 1000

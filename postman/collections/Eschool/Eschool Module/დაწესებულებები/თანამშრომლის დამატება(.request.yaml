@@ -1,0 +1,26 @@
+$kind: http-request
+name: თანამშრომლის დამატება(იურ. პირის)/საკონტაქტო პირით
+url: https://eschool-api.dev.ol.ge/institution/institutions/1001/partnerships
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"idNumber\": \"445838078\",\r
+
+    \    \"firstName\": \"bigl dnsbifl sanbfgodlhsjnfbd ohslhafn sajkhasjk\",\r
+
+    \    \"lastName\": \"bjgkdlgnosahfoauhgodlsbgdsngdsofnsoahfsaofhsajfhsj\",\r
+
+    \    \"partnershipStartDate\": \"20/05/2026\",\r
+
+    \    \"partnershipEndDate\": \"22/05/2026\",\r
+
+    \    \"mobileNumber\": \"001532132\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{eschoolToken}}"
+order: 3000

@@ -1,0 +1,31 @@
+$kind: http-request
+url: "{{urlCore}}libraries/resource-centers/{{itemLibraryId}}"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"postmaN\",\r
+
+    \    \"nameEn\": \"postman5\",\r
+
+    \    \"code\": \"RC-223\",\r
+
+    \    \"addressKa\": \"postman12312\",\r
+
+    \    \"addressEn\": \"postmansadsa\",\r
+
+    \    \"phoneNumber\": \"042132135532\",\r
+
+    \    \"mobileNumber\": \"512366321\",\r
+
+    \    \"email\": \"postman123@gmail.com\",\r
+
+    \    \"regionId\": 1000,\r
+
+    \    \"iconRemoved\": true,\r
+
+    \    \"lastUpdateDate\": \"{{lastUpdateDate}}\"\r
+
+    }"
+order: 3000

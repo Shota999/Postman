@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{urlEschool}}admin/libraries/sen-categories/{{itemId}}"
+method: DELETE
+order: 4000

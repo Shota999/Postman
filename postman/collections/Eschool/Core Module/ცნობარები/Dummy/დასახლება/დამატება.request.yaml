@@ -1,0 +1,17 @@
+$kind: http-request
+url: https://dummy-rest-service-eschool.apps.henry.ol.ge/api/settlements
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"nameKa\": \"თბილისი2\",\r
+
+    \  \"nameEn\": \"tbilisi2\",\r
+
+    \  \"code\": \"TB2\",\r
+
+    \  \"type\": \"ქალაქი\"\r
+
+    }"
+order: 2000

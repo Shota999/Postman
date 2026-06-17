@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{urlEschool}}admin/libraries/sen-categories"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"ტესტ21321312312\",\r
+
+    \    \"nameEn\": \"tesafasasdsa1\"\r
+
+    \    // \"effectiveDate\": \"28/05/2026 00:00:00\"\r
+
+    }"
+order: 2000

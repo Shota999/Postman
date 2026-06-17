@@ -1,0 +1,47 @@
+$kind: http-request
+url: https://kc-test.emis.ge/realms/eschool-dev/protocol/openid-connect/token
+method: POST
+body:
+  type: urlencoded
+  content:
+    - key: grant_type
+      value: password
+      disabled: true
+    - key: client_id
+      value: core
+      disabled: true
+    - key: client_secret
+      value: i1oCP7WcjhLjzlpPhxYaVP4INngSjZmj
+      disabled: true
+    - key: username
+      value: asernasib
+      disabled: true
+    - key: password
+      value: asernasib1
+      disabled: true
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: "let response = pm.response.json();\r
+
+      let token = response.access_token;\r
+
+      \r
+
+      pm.environment.set(\"coreToken\", token);\r
+
+      pm.environment.set('coreTokenExpiry', Date.now() + response.expires_in * 1000);"
+    language: text/javascript
+  - type: beforeRequest
+    code: "pm.environment.set(\"grant_type\", \"password\");\r
+
+      pm.environment.set(\"client_id\", \"core\");\r
+
+      pm.environment.set(\"client_secret\", \"i1oCP7WcjhLjzlpPhxYaVP4INngSjZmj\");\r
+
+      pm.environment.set(\"username\", \"asernasib\");\r
+
+      pm.environment.set(\"password\", \"asernasib1\");"
+    language: text/javascript
+order: 2000

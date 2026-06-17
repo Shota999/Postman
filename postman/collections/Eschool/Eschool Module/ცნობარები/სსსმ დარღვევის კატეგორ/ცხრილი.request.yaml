@@ -1,0 +1,22 @@
+$kind: http-request
+url: "{{urlEschool}}admin/libraries/sen-categories?page=1&size=25&orderBy=id:desc"
+method: GET
+queryParams:
+  page: "1"
+  size: "25"
+  orderBy: id:desc
+scripts:
+  - type: afterResponse
+    code: "let response = pm.response.json();\r
+
+      let id = response.content[0].id;\r
+
+      let lastUpDate = response.content[0].lastUpdateDate;\r
+
+      \r
+
+      pm.variables.set(\"itemId\", id);\r
+
+      pm.variables.set(\"lastUpdateDate\", lastUpDate);"
+    language: text/javascript
+order: 1000

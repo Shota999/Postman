@@ -1,0 +1,22 @@
+$kind: http-request
+url: "{{urlCore}}libraries/region/{{itemLibraryId}}/status"
+method: PATCH
+queryParams:
+  - key: status
+    value: INACTIVE
+    disabled: true
+  - key: lastUpdateDate
+    value: 03/06/2026%2014:00:08
+    disabled: true
+body:
+  type: json
+  content: "{\r
+
+    \    \"status\": \"INACTIVE\"\r
+
+    \    // \"status\": \"CANCELLED\",\r
+
+    \    // \"lastUpdateDate\": \"{{lastUpdateDate}}\"\r
+
+    }"
+order: 4000

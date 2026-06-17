@@ -1,0 +1,15 @@
+$kind: http-request
+url: https://dummy-rest-service-eschool.apps.henry.ol.ge/api/districts
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"nameKa\": \"ახალი რაიონი\",\r
+
+    \  \"nameEn\": \"new\",\r
+
+    \  \"code\": \"NW\"\r
+
+    }"
+order: 2000

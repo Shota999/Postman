@@ -1,0 +1,5 @@
+$kind: http-request
+name: წაშლა ( გაუქმებულში გადადის )
+url: https://dummy-rest-service-eschool.apps.henry.ol.ge/api/districts/4
+method: DELETE
+order: 5000

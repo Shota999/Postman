@@ -1,0 +1,15 @@
+$kind: http-request
+url: https://dummy-rest-service-eschool.apps.henry.ol.ge/api/municipalities
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"nameKa\": \"ლუკასთვის123123\",\r
+
+    \    \"nameEn\": \"forLuka123213\",\r
+
+    \    \"code\": \"QY\"\r
+
+    }"
+order: 2000

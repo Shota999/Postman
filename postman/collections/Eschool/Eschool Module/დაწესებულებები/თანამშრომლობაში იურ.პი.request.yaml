@@ -1,0 +1,16 @@
+$kind: http-request
+name: თანამშრომლობაში იურ.პირის გადამოწმება
+url: "{{urlEschool}}institution/institutions/check-partnership"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"idNumber\": \"445838078\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{eschoolToken}}"
+order: 2000
