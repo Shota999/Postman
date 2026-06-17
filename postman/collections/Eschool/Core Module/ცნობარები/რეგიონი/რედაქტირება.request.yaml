@@ -3,17 +3,42 @@ url: "{{urlCore}}libraries/region/{{itemLibraryId}}"
 method: PUT
 body:
   type: json
-  content: "{\r
+  content: |
+    {
+        "name": "axli62372",
+        "nameEn": "axali6252",
+        "code": "XI",
+        "iconRemoved": true,
+        "lastUpdateDate": "{{lastUpdateDate}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |
+      let res = null;
+      try {
+          res = pm.response.json();
+      } catch (e) {
+          console.warn("პასუხის body ცარიელია ან JSON არ არის:", e.message);
+      }
 
-    \    \"name\": \"axli62372\",\r
+      pm.test("სტატუს-კოდი 200", () => pm.response.to.have.status(200));
 
-    \    \"nameEn\": \"axali6252\",\r
+      pm.test("პასუხის დრო < 2000ms", () => {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
 
-    \    \"code\": \"XI\",\r
+      pm.test("რედაქტირდა იგივე ჩანაწერი (id ემთხვევა)", () => {
+          pm.expect(res, "response body").to.not.be.null;
+          pm.expect(String(res.id)).to.eql(String(pm.collectionVariables.get("itemLibraryId")));
+      });
 
-    \    \"iconRemoved\": true,\r
+      pm.test("დასახელება განახლდა", () => {
+          pm.expect(res.name).to.eql("axli62372");
+      });
 
-    \    \"lastUpdateDate\": \"{{lastUpdateDate}}\"\r
-
-    }"
+      // ვანახლებთ lastUpdateDate-ს მომდევნო PATCH/DELETE ოპერაციებისთვის
+      if (res && (res.lastUpdateDate || res.dateAdded)) {
+          pm.collectionVariables.set("lastUpdateDate", res.lastUpdateDate || res.dateAdded);
+      }
+    language: text/javascript
 order: 3000

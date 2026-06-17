@@ -10,22 +10,40 @@ queryParams:
     disabled: true
 body:
   type: json
-  content: "{\r
-
-    \    \"status\": \"{{targetStatus}}\",\r
-
-    \    \"lastUpdateDate\": \"{{lastUpdateDate}}\"\r
-
-    }"
+  content: |
+    {
+        "status": "{{targetStatus}}",
+        "lastUpdateDate": "{{lastUpdateDate}}"
+    }
 scripts:
   - type: beforeRequest
-    code: "pm.collectionVariables.set(\"targetStatus\", \"ACTIVE\");\r
-
-      pm.collectionVariables.set(\"expectedStatus\", \"ACTIVE\");"
+    code: |
+      pm.collectionVariables.set("targetStatus", "ACTIVE");
+      pm.collectionVariables.set("expectedStatus", "ACTIVE");
     language: text/javascript
   - type: afterResponse
-    code: "pm.test(\"სტატუს-კოდი 200\", () => pm.response.to.have.status(200));\r
+    code: |
+      let res = null;
+      try {
+          res = pm.response.json();
+      } catch (e) {
+          console.warn("პასუხის body ცარიელია ან JSON არ არის:", e.message);
+      }
 
-      pm.test(\"პასუხის დრო < 2000ms\", () => pm.expect(pm.response.responseTime).to.be.below(2000));"
+      pm.test("სტატუს-კოდი 200", () => pm.response.to.have.status(200));
+
+      pm.test("პასუხის დრო < 2000ms", () => {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+
+      pm.test("სტატუსი განახლდა მოთხოვნილ მნიშვნელობამდე", () => {
+          pm.expect(res, "response body").to.not.be.null;
+          pm.expect(res.status).to.eql(pm.collectionVariables.get("expectedStatus"));
+      });
+
+      // ვანახლებთ lastUpdateDate-ს მომდევნო ოპერაციებისთვის
+      if (res && res.lastUpdateDate) {
+          pm.collectionVariables.set("lastUpdateDate", res.lastUpdateDate);
+      }
     language: text/javascript
 order: 4000

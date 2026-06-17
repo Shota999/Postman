@@ -7,70 +7,65 @@ queryParams:
     disabled: true
 body:
   type: json
-  content: "{\r
-
-    \    \"name\": \"{{regionName}}\",\r
-
-    \    \"nameEn\": \"{{regionNameEn}}\",\r
-
-    \    \"code\": \"{{regionCode}}\",\r
-
-    \    \"iconRemoved\": true\r
-
-    }"
+  content: |
+    {
+        "name": "{{regionName}}",
+        "nameEn": "{{regionNameEn}}",
+        "code": "{{regionCode}}",
+        "iconRemoved": true
+    }
 scripts:
-  - type: afterResponse
-    code: "let res = null;\r
-
-      try {\r
-
-      \    res = pm.response.json();\r
-
-      } catch (e) {\r
-
-      \    console.warn(\"პასუხის body ცარიელია ან JSON არ არის:\", e.message);\r
-
-      }\r
-
-      \r
-
-      pm.test(\"სტატუს-კოდი 201 (შეიქმნა)\", () => {\r
-
-      \    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r
-
-      });\r
-
-      \r
-
-      pm.test(\"პასუხის დრო < 2000ms\", () => {\r
-
-      \    pm.expect(pm.response.responseTime).to.be.below(2000);\r
-
-      });\r
-
-      \r
-
-      pm.test(\"itemLibraryId ჩაიჭერა ჯაჭვისთვის\", () => {\r
-
-      \      pm.expect(pm.collectionVariables.get(\"itemLibraryId\")).to.not.be.undefined;\r
-
-      \  });"
-    language: text/javascript
   - type: beforeRequest
-    code: "const n = Date.now();\r
+    code: |
+      const n = Date.now();
+      const L = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-      const L = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\";\r
+      const code = L[Math.floor(n / 26) % 26] + L[n % 26];
 
-      \r
+      pm.collectionVariables.set("regionCode", code);
+      pm.collectionVariables.set("regionName", "ავტოტესტ_რეგიონი_" + n.toString().slice(-4));
+      pm.collectionVariables.set("regionNameEn", "autotest_region_" + n.toString().slice(-4));
+    language: text/javascript
+  - type: afterResponse
+    code: |
+      let res = null;
+      try {
+          res = pm.response.json();
+      } catch (e) {
+          console.warn("პასუხის body ცარიელია ან JSON არ არის:", e.message);
+      }
 
-      const code = L[Math.floor(n / 26) % 26] + L[n % 26];\r
+      pm.test("სტატუს-კოდი 200/201 (შეიქმნა)", () => {
+          pm.expect(pm.response.code).to.be.oneOf([200, 201]);
+      });
 
-      \r
+      pm.test("პასუხის დრო < 2000ms", () => {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
 
-      pm.collectionVariables.set(\"regionCode\", code);\r
+      pm.test("პასუხი JSON ფორმატშია", () => {
+          pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
+      });
 
-      pm.collectionVariables.set(\"regionName\", \"ავტოტესტ_რეგიონი_\" + n.toString().slice(-4));\r
+      pm.test("პასუხი შეიცავს id-ს", () => {
+          pm.expect(res, "response body").to.not.be.null;
+          pm.expect(res).to.have.property("id");
+      });
 
-      pm.collectionVariables.set(\"regionNameEn\", \"autotest_region_\" + n.toString().slice(-4));"
+      pm.test("შექმნილი ჩანაწერის დასახელება ემთხვევა გაგზავნილს", () => {
+          pm.expect(res.name).to.eql(pm.collectionVariables.get("regionName"));
+      });
+
+      // ჯაჭვისთვის ვიჭერთ ახლადშექმნილი ჩანაწერის id-სა და თარიღს
+      if (res && res.id) {
+          pm.collectionVariables.set("itemLibraryId", res.id);
+          if (res.lastUpdateDate || res.dateAdded) {
+              pm.collectionVariables.set("lastUpdateDate", res.lastUpdateDate || res.dateAdded);
+          }
+      }
+
+      pm.test("itemLibraryId ჩაიჭერა ჯაჭვისთვის", () => {
+          pm.expect(pm.collectionVariables.get("itemLibraryId")).to.not.be.undefined;
+      });
     language: text/javascript
 order: 1000
