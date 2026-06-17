@@ -156,9 +156,7 @@ scripts:
 
       \r
 
-      \        // const sorted = json.content.sort((a, b) => b.id - a.id);\r
-
-      \        const lastElement = sorted[sorted.length - 1];\r
+      \        const lastElement = json.content[json.content.length - 1];\r
 
       \r
 

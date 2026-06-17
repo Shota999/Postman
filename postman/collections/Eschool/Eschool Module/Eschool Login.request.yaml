@@ -5,19 +5,19 @@ body:
   type: urlencoded
   content:
     - key: grant_type
-      value: password
+      value: "{{grant_type}}"
       disabled: true
     - key: client_id
-      value: eschool
+      value: "{{client_id(Eschool)}}"
       disabled: true
     - key: client_secret
-      value: Am6OIRxIRNpSz4bX7UBVbhPvQUiKmXNC
+      value: "{{client_secret(Eschool)}}"
       disabled: true
     - key: username
-      value: asernasib
+      value: "{{username}}"
       disabled: true
     - key: password
-      value: asernasib1
+      value: "{{password}}"
       disabled: true
 auth:
   type: noauth
@@ -32,16 +32,5 @@ scripts:
       pm.environment.set(\"eschoolToken\", token);\r
 
       pm.environment.set('eschoolTokenExpiry', Date.now() + response.expires_in * 1000);"
-    language: text/javascript
-  - type: beforeRequest
-    code: "pm.environment.set(\"grant_type\", \"password\");\r
-
-      pm.environment.set(\"client_id\", \"eschool\");\r
-
-      pm.environment.set(\"client_secret\", \"Am6OlRxlRNpSz4bX7UBVbhPvQUiKmXNC\");\r
-
-      pm.environment.set(\"username\", \"asernasib\");\r
-
-      pm.environment.set(\"password\", \"asernasib1\");"
     language: text/javascript
 order: 3000
