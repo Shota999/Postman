@@ -1,4 +1,5 @@
 $kind: collection
+name: ცნობარები
 scripts:
   - type: http:beforeRequest
     code: "const baseUrl = pm.environment.get('urlCore');\r
@@ -12,14 +13,6 @@ scripts:
       const endpointMap = {\r
 
       \    'region': 'libraries/region?orderBy=id:asc',\r
-
-      \    // 'municipalities': 'libraries/municipalities?orderBy=id:asc',\r
-
-      \    // 'districts': 'libraries/districts?orderBy=id:asc',\r
-
-      \    // 'administrative-units': 'libraries/administrative-units?orderBy=id:asc',\r
-
-      \    // 'settlements': 'libraries/settlements?orderBy=id:asc',\r
 
       \    'resource-center': 'libraries/resource-centers?orderBy=id:asc',\r
 
@@ -40,18 +33,6 @@ scripts:
       \r
 
       if (pm.request.method !== 'PUT' && pm.request.method !== 'PATCH') return;\r
-
-      \r
-
-      // if (pm.variables.get(\"skipTokenCheck\")) {\r
-
-      //     pm.variables.unset(\"skipTokenCheck\");\r
-
-      //     console.log(\"Skipping token check\");\r
-
-      //     return;\r
-
-      // }\r
 
       \r
 

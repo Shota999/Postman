@@ -1,4 +1,5 @@
 $kind: http-request
+name: ცხრილი
 url: "{{urlCore}}libraries/region?orderBy=id:asc"
 method: GET
 queryParams:
@@ -15,8 +16,8 @@ queryParams:
     disabled: true
 scripts:
   - type: afterResponse
-    code: |
-      const response = pm.response.json();
+    code: |-
+      let response = pm.response.json();
 
       pm.test("Status code is 200", function () {
           pm.response.to.have.status(200);
