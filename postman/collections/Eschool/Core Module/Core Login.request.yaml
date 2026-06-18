@@ -4,21 +4,11 @@ method: POST
 body:
   type: urlencoded
   content:
-    - key: grant_type
-      value: "{{grant_type}}"
-      disabled: true
-    - key: client_id
-      value: "{{client_id(Core)}}"
-      disabled: true
-    - key: client_secret
-      value: "{{client_secret(Core)}}"
-      disabled: true
-    - key: username
-      value: "{{username}}"
-      disabled: true
-    - key: password
-      value: "{{password}}"
-      disabled: true
+    grant_type: "{{grant_type}}"
+    client_id: "{{client_id(Core)}}"
+    client_secret: "{{client_secret(Core)}}"
+    username: "{{username}}"
+    password: "{{password}}"
 auth:
   type: noauth
 scripts:
@@ -32,5 +22,16 @@ scripts:
       pm.environment.set(\"coreToken\", token);\r
 
       pm.environment.set('coreTokenExpiry', Date.now() + response.expires_in * 1000);"
+    language: text/javascript
+  - type: beforeRequest
+    code: "pm.environment.set(\"grant_type\", \"password\");\r
+
+      pm.environment.set(\"client_id(Core)\", \"core\");\r
+
+      pm.environment.set(\"client_secret(Core)\", \"i1oCP7WcjhLjzlpPhxYaVP4INngSjZmj\");\r
+
+      pm.environment.set(\"username\", \"asernasib\");\r
+
+      pm.environment.set(\"password\", \"asernasib1\");"
     language: text/javascript
 order: 2000

@@ -1,0 +1,22 @@
+$kind: http-request
+name: Edit
+url: "{{urlCore}}libraries/foreign-university/{{itemLibraryId}}"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"ტესტ123\",\r
+
+    \    \"nameEn\": \"test121\",\r
+
+    \    \"code\": \"IAU-123215\",\r
+
+    \    \"countryId\": 1025,\r
+
+    \    \"iconRemoved\": true,\r
+
+    \    \"lastUpdateDate\": \"{{lastUpdateDate}}\"\r
+
+    }"
+order: 3000

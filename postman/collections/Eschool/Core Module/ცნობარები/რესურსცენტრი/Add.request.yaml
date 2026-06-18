@@ -1,0 +1,62 @@
+$kind: http-request
+name: Add
+url: "{{urlCore}}libraries/resource-centers"
+method: POST
+queryParams:
+  - key: search
+    value: kakheti
+    disabled: true
+body:
+  type: json
+  content: |
+    {
+        "name": "{{rcName}}",
+        "nameEn": "{{rcNameEn}}",
+        "code": "{{rcCode}}",
+        "addressKa": "{{rcAddressKa}}",
+        "addressEn": "{{rcAddressEn}}",
+        "phoneNumber": "{{rcPhoneNumber}}",
+        "mobileNumber": "{{rcMobileNumber}}",
+        "email": "{{rcEmail}}",
+        "regionId": {{regionId}},
+        "iconRemoved": true
+    }
+scripts:
+  - type: beforeRequest
+    code: |-
+      const n = Date.now();
+      const suffix = n.toString().slice(-4);
+
+      // code: "RC-" + 3 digits derived from timestamp
+      const code = "RC-" + n.toString().slice(-3);
+
+      // name / nameEn — max 250 chars (well within limit)
+      pm.collectionVariables.set("rcName", "ავტოტესტ_რც_" + suffix);
+      pm.collectionVariables.set("rcNameEn", "autotest_rc_" + suffix);
+
+      // address strings — max 250 chars
+      pm.collectionVariables.set("rcAddressKa", "ავტოტესტი_მისამართი_" + suffix);
+      pm.collectionVariables.set("rcAddressEn", "autotest_address_" + suffix);
+
+      // phoneNumber — digits only, max 12 symbols
+      pm.collectionVariables.set("rcPhoneNumber", ("0" + n.toString()).slice(0, 12));
+
+      // mobileNumber — digits only, starts with 5, max 9 symbols
+      pm.collectionVariables.set("rcMobileNumber", ("5" + n.toString()).slice(0, 9));
+
+      // email — valid format, test domain
+      pm.collectionVariables.set("rcEmail", "autotest_" + suffix + "@test.com");
+
+      pm.collectionVariables.set("rcCode", code);
+    language: text/javascript
+  - type: afterResponse
+    code: |-
+      pm.test("სტატუს-კოდი 200/201/409", () => {
+          pm.expect(pm.response.code).to.be.oneOf([200, 201, 409]);
+      });
+
+      pm.test("პასუხის დრო < 2000ms", () => {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+    language: text/javascript
+order: 1000

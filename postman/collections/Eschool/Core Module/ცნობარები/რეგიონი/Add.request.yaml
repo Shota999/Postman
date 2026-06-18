@@ -1,0 +1,39 @@
+$kind: http-request
+url: "{{urlCore}}libraries/region"
+method: POST
+queryParams:
+  - key: search
+    value: kakheti
+    disabled: true
+body:
+  type: json
+  content: |
+    {
+        "name": "{{regionName}}",
+        "nameEn": "{{regionNameEn}}",
+        "code": "{{regionCode}}",
+        "iconRemoved": true
+    }
+scripts:
+  - type: beforeRequest
+    code: |-
+      const n = Date.now();
+      const L = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+      const code = L[Math.floor(n / 26) % 26] + L[n % 26];
+
+      pm.collectionVariables.set("regionCode", code);
+      pm.collectionVariables.set("regionName", "ავტოტესტ_რეგიონი_" + n.toString().slice(-4));
+      pm.collectionVariables.set("regionNameEn", "autotest_region_" + n.toString().slice(-4));
+    language: text/javascript
+  - type: afterResponse
+    code: |-
+      pm.test("სტატუს-კოდი 200/201/409", () => {
+          pm.expect(pm.response.code).to.be.oneOf([200, 201, 409]);
+      });
+
+      pm.test("პასუხის დრო < 2000ms", () => {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+    language: text/javascript
+order: 1000

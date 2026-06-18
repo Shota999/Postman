@@ -1,24 +1,15 @@
 $kind: http-request
+name: Eschool Login
 url: https://kc-test.emis.ge/realms/eschool-dev/protocol/openid-connect/token
 method: POST
 body:
   type: urlencoded
   content:
-    - key: grant_type
-      value: "{{grant_type}}"
-      disabled: true
-    - key: client_id
-      value: "{{client_id(Eschool)}}"
-      disabled: true
-    - key: client_secret
-      value: "{{client_secret(Eschool)}}"
-      disabled: true
-    - key: username
-      value: "{{username}}"
-      disabled: true
-    - key: password
-      value: "{{password}}"
-      disabled: true
+    grant_type: "{{grant_type}}"
+    client_id: "{{client_id(Eschool)}}"
+    client_secret: "{{client_secret(Eschool)}}"
+    username: "{{username}}"
+    password: "{{password}}"
 auth:
   type: noauth
 scripts:
@@ -32,5 +23,16 @@ scripts:
       pm.environment.set(\"eschoolToken\", token);\r
 
       pm.environment.set('eschoolTokenExpiry', Date.now() + response.expires_in * 1000);"
+    language: text/javascript
+  - type: beforeRequest
+    code: "pm.environment.set(\"grant_type\", \"password\");\r
+
+      pm.environment.set(\"client_id(Eschool)\", \"eschool\");\r
+
+      pm.environment.set(\"client_secret(Eschool)\", \"Am6OIRxIRNpSz4bX7UBVbhPvQUiKmXNC\");\r
+
+      pm.environment.set(\"username\", \"asernasib\");\r
+
+      pm.environment.set(\"password\", \"asernasib1\");"
     language: text/javascript
 order: 3000

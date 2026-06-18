@@ -1,0 +1,82 @@
+$kind: http-request
+name: Grid
+url: "{{urlCore}}libraries/region?orderBy=id:asc"
+method: GET
+queryParams:
+  - key: page
+    value: "1"
+    disabled: true
+  - key: size
+    value: "25"
+    disabled: true
+  - key: orderBy
+    value: id:asc
+  - key: search
+    value: kakheti
+    disabled: true
+scripts:
+  - type: afterResponse
+    code: |-
+      const response = pm.response.json();
+      const VALID_STATUSES = ["DRAFT", "ACTIVE", "INACTIVE", "CANCELLED"];
+      const REQUIRED_FIELDS = ["id", "name", "nameEn", "code", "status"];
+
+      pm.test("სტატუს-კოდი 200", () => {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("პასუხი JSON ფორმატშია", () => {
+          pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
+      });
+
+      pm.test("პასუხის დრო < 2000ms", () => {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+
+
+      pm.test("ყველა ჩანაწერს აქვს სავალდებულო ველები", () => {
+          (response.content || []).forEach((item, i) => {
+              REQUIRED_FIELDS.forEach(field => {
+                  pm.expect(item, `item[${i}].${field}`).to.have.property(field);
+              });
+          });
+      });
+
+      pm.test("id ველი რიცხვითი ტიპისაა ყველა ჩანაწერში", () => {
+          (response.content || []).forEach((item, i) => {
+              pm.expect(item.id, `item[${i}].id`).to.be.a("number");
+          });
+      });
+
+      pm.test("სტატუსი ვალიდური მნიშვნელობისაა ყველა ჩანაწერში", () => {
+          (response.content || []).forEach((item, i) => {
+              pm.expect(VALID_STATUSES, `item[${i}].status`).to.include(item.status);
+          });
+      });
+
+      pm.test("სიაში არის მინიმუმ ერთი ჩანაწერი", () => {
+          pm.expect((response.content || []).length).to.be.above(0);
+      });
+
+      const activeRegions = (response.content || []).filter(r => r.status === "ACTIVE");
+      const lastActive = activeRegions[activeRegions.length - 1];
+      if (lastActive) {
+          pm.collectionVariables.set("regionId", lastActive.id);
+      }
+
+      pm.test("აქტიური რეგიონი მოიძებნა და regionId დაყენდა", () => {
+          pm.expect(lastActive, "at least one active region").to.not.be.undefined;
+      });
+
+      const items = response.content || [];
+      const last = items[items.length - 1];
+      if (last) {
+          pm.collectionVariables.set("itemLibraryId", last.id);
+          pm.collectionVariables.set("regionCurrentStatus", last.status);
+          pm.collectionVariables.set(
+              "lastUpdateDate",
+              last.lastUpdateDate || new Date().toISOString()
+          );
+      }
+    language: text/javascript
+order: 2000

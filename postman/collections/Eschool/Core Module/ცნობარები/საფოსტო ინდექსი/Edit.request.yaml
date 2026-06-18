@@ -1,0 +1,38 @@
+$kind: http-request
+url: "{{urlCore}}/libraries/postal-codes/{{itemLibraryId}}"
+method: PUT
+body:
+  type: json
+  content: |
+    {
+        "code": "{{postalCode}}",
+        "address": "{{postalAddress}}",
+        "regionId": {{regionId}},
+        "municipalityId": {{municipalityId}},
+        "administrativeUnitId": {{administrativeUnitId}},
+        "settlementId": {{settlementId}},
+        "districtId": {{districtId}},
+        "iconRemoved": true,
+        "lastUpdateDate": "{{lastUpdateDate}}"
+    }
+scripts:
+  - type: beforeRequest
+    code: |-
+      const n = Date.now();
+      const suffix = n.toString().slice(-4);
+
+      pm.collectionVariables.set("postalCode", suffix);
+      pm.collectionVariables.set("postalAddress", "ავტოტესტ_მისამართი_edit_" + suffix);
+
+    language: text/javascript
+  - type: afterResponse
+    code: |-
+      pm.test("სტატუს-კოდი 200/409", () => {
+          pm.expect(pm.response.code).to.be.oneOf([200, 409]);
+      });
+
+      pm.test("პასუხის დრო < 2000ms", () => {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+    language: text/javascript
+order: 3000

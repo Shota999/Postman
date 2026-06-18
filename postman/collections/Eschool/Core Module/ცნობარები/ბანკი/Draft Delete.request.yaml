@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{urlCore}}libraries/bank/{{itemLibraryId}}"
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("სტატუს-კოდი 200/204 (წაიშალა)", () => {
+          pm.expect(pm.response.code).to.be.oneOf([200, 204]);
+      });
+
+      pm.test("პასუხის დრო < 2000ms", () => {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+
+      pm.collectionVariables.unset("itemLibraryId");
+      pm.collectionVariables.unset("bankCurrentStatus");
+      pm.collectionVariables.unset("lastUpdateDate");
+    language: text/javascript
+order: 6000

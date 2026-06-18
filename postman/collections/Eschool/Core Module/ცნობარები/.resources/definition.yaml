@@ -1,5 +1,4 @@
 $kind: collection
-name: ცნობარები
 scripts:
   - type: http:beforeRequest
     code: "const baseUrl = pm.environment.get('urlCore');\r

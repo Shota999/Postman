@@ -1,4 +1,0 @@
-$kind: http-request
-url: "{{urlCore}}core/libraries/country/{{itemLibraryId}}"
-method: DELETE
-order: 5000

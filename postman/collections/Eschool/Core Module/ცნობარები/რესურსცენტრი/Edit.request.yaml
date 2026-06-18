@@ -1,0 +1,45 @@
+$kind: http-request
+url: "{{urlCore}}libraries/resource-centers/{{itemLibraryId}}"
+method: PUT
+body:
+  type: json
+  content: |
+    {
+        "name": "{{rcName}}",
+        "nameEn": "{{rcNameEn}}",
+        "code": "{{rcCode}}",
+        "addressKa": "{{rcAddressKa}}",
+        "addressEn": "{{rcAddressEn}}",
+        "phoneNumber": "{{rcPhoneNumber}}",
+        "mobileNumber": "{{rcMobileNumber}}",
+        "email": "{{rcEmail}}",
+        "regionId": {{regionId}},
+        "iconRemoved": true,
+        "lastUpdateDate": "{{lastUpdateDate}}"
+    }
+scripts:
+  - type: beforeRequest
+    code: |-
+      const n = Date.now();
+      const suffix = n.toString().slice(-4);
+
+      pm.collectionVariables.set("rcName", "ავტოტესტ_რც_edit_" + suffix);
+      pm.collectionVariables.set("rcNameEn", "autotest_rc_edit_" + suffix);
+      pm.collectionVariables.set("rcCode", "RC-" + n.toString().slice(-3));
+      pm.collectionVariables.set("rcAddressKa", "ავტოტესტი_მისამართი_edit_" + suffix);
+      pm.collectionVariables.set("rcAddressEn", "autotest_address_edit_" + suffix);
+      pm.collectionVariables.set("rcPhoneNumber", ("0" + n.toString()).slice(0, 12));
+      pm.collectionVariables.set("rcMobileNumber", ("5" + n.toString()).slice(0, 9));
+      pm.collectionVariables.set("rcEmail", "autotest_edit_" + suffix + "@test.com");
+    language: text/javascript
+  - type: afterResponse
+    code: |-
+      pm.test("სტატუს-კოდი 200/409", () => {
+          pm.expect(pm.response.code).to.be.oneOf([200, 409]);
+      });
+
+      pm.test("პასუხის დრო < 2000ms", () => {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+    language: text/javascript
+order: 3000

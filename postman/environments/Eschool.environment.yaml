@@ -30,8 +30,6 @@ values:
     value: ''
   - key: lastUpdateDate
     value: '18/05/2026 15:28:55'
-  - key: regionId
-    value: '1520'
   - key: recourceCentersId
     value: '1520'
   - key: itemLibraryId
@@ -42,4 +40,8 @@ values:
     value: '205232238'
   - key: skipTokenCheck
     value: 'true'
+  - key: client_id
+    value: ''
+  - key: client_secret
+    value: ''
 color: 180
