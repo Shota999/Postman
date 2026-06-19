@@ -137,3 +137,12 @@ variables:
   - key: postalAddress
     value: ""
     secret: false
+  - key: itemLibraryId
+    value: ""
+    secret: false
+  - key: postalCurrentStatus
+    value: ""
+    secret: false
+  - key: lastUpdateDate
+    value: ""
+    secret: false
