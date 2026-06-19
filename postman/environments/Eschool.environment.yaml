@@ -42,4 +42,6 @@ values:
     value: '205232238'
   - key: skipTokenCheck
     value: 'true'
+  - key: supabase_service_role_api_key_0h3n
+    secret: true
 color: 0
