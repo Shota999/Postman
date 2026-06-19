@@ -1,0 +1,71 @@
+$kind: http-request
+url: "{{urlCore}}libraries/bank/{{itemLibraryId}}/status"
+method: PATCH
+body:
+  type: json
+  content: |
+    {
+        "status": "{{bankTargetStatus}}"
+    }
+scripts:
+  - type: beforeRequest
+    code: |-
+      const itemId = pm.collectionVariables.get("itemLibraryId");
+      if (!itemId) {
+          throw new Error("itemLibraryId is not set — run the Grid request first.");
+      }
+
+      const baseUrl = pm.collectionVariables.get("urlCore") || pm.environment.get("urlCore");
+
+      const transitions = {
+          "DRAFT":     ["ACTIVE"],
+          "ACTIVE":    ["INACTIVE", "CANCELLED"],
+          "INACTIVE":  ["ACTIVE", "CANCELLED"],
+          "CANCELLED": []
+      };
+
+      pm.sendRequest({
+          url: baseUrl + "libraries/bank?orderBy=id:asc",
+          method: "GET",
+          header: { Authorization: pm.request.headers.get("Authorization") }
+      }, function (err, res) {
+          if (err) throw new Error("GET list failed: " + err);
+
+          const data = res.json();
+          const items = data.content || [];
+          const item = items.find(i => String(i.id) === String(itemId));
+
+          if (!item) {
+              throw new Error(`Item with id ${itemId} not found in bank list.`);
+          }
+
+          const current = item.status;
+          pm.collectionVariables.set("bankCurrentStatus", current);
+
+          const allowed = transitions[current];
+
+          if (!allowed) {
+              throw new Error(`Unknown status value: "${current}"`);
+          }
+          if (allowed.length === 0) {
+              throw new Error(`Status is "${current}" — no transition allowed.`);
+          }
+
+          pm.collectionVariables.set("bankTargetStatus", allowed[0]);
+      });
+    language: text/javascript
+  - type: afterResponse
+    code: |-
+      pm.test("სტატუს-კოდი 200/409", () => {
+          pm.expect(pm.response.code).to.be.oneOf([200, 409]);
+      });
+
+      pm.test("პასუხის დრო < 2000ms", () => {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+
+      if (pm.response.code === 200) {
+          pm.collectionVariables.set("bankCurrentStatus", pm.collectionVariables.get("bankTargetStatus"));
+      }
+    language: text/javascript
+order: 5000

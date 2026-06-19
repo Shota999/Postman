@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{urlCore}}libraries/legalForm/{{itemLibraryId}}"
+method: DELETE
+order: 5000

@@ -67,9 +67,72 @@ variables:
   - key: expectedStatus
     value: ""
     secret: false
-  - key: itemLibraryId
+  - key: currencySymbol
     value: ""
     secret: false
-  - key: lastUpdateDate
+  - key: currencyName
+    value: ""
+    secret: false
+  - key: currencyNameEn
+    value: ""
+    secret: false
+  - key: rcName
+    value: ""
+    secret: false
+  - key: rcNameEn
+    value: ""
+    secret: false
+  - key: rcAddressKa
+    value: ""
+    secret: false
+  - key: rcAddressEn
+    value: ""
+    secret: false
+  - key: rcPhoneNumber
+    value: ""
+    secret: false
+  - key: rcMobileNumber
+    value: ""
+    secret: false
+  - key: rcEmail
+    value: ""
+    secret: false
+  - key: rcCode
+    value: ""
+    secret: false
+  - key: regionId
+    value: ""
+    secret: false
+  - key: rcTargetStatus
+    value: ""
+    secret: false
+  - key: rcExpectedStatus
+    value: ""
+    secret: false
+  - key: regionCurrentStatus
+    value: ""
+    secret: false
+  - key: regionTargetStatus
+    value: ""
+    secret: false
+  - key: bankSwiftCode
+    value: ""
+    secret: false
+  - key: bankIban
+    value: ""
+    secret: false
+  - key: bankTargetStatus
+    value: ""
+    secret: false
+  - key: currencyCurrentStatus
+    value: ""
+    secret: false
+  - key: currencyTargetStatus
+    value: ""
+    secret: false
+  - key: postalCode
+    value: ""
+    secret: false
+  - key: postalAddress
     value: ""
     secret: false

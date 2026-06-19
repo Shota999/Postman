@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{urlCore}}libraries/country/{{itemLibraryId}}"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"t1\",\r
+
+    \    \"nameEn\": \"t\",\r
+
+    \    \"code\": \"KLL\",\r
+
+    \    \"sdaApiCode\": \"777\",\r
+
+    \    \"borderApiCode\": \"777\",\r
+
+    \    \"iconRemoved\": true,\r
+
+    \    \"lastUpdateDate\": \"{{lastUpdateDate}}\"\r
+
+    }"
+order: 3000

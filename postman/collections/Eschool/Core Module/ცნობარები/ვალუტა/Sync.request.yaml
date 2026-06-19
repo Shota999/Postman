@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{urlCore}}libraries/currency/exchange-rates/sync"
+method: PATCH
+order: 6000

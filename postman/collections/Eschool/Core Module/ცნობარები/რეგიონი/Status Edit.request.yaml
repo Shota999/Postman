@@ -1,0 +1,66 @@
+$kind: http-request
+url: "{{urlCore}}libraries/region/{{itemLibraryId}}/status"
+method: PATCH
+body:
+  type: json
+  content: |
+    {
+        "status": "{{regionTargetStatus}}",
+        "lastUpdateDate": "{{lastUpdateDate}}"
+    }
+scripts:
+  - type: beforeRequest
+    code: |-
+      const itemId = pm.collectionVariables.get("itemLibraryId");
+      if (!itemId) {
+          throw new Error("itemLibraryId is not set — run the Grid request first.");
+      }
+
+      const baseUrl = pm.collectionVariables.get("urlCore") || pm.environment.get("urlCore");
+
+      const transitions = {
+          "DRAFT":     ["ACTIVE"],
+          "ACTIVE":    ["INACTIVE", "CANCELLED"],
+          "INACTIVE":  ["ACTIVE", "CANCELLED"],
+          "CANCELLED": []
+      };
+
+      pm.sendRequest({
+          url: baseUrl + "libraries/region/" + itemId,
+          method: "GET",
+          header: { Authorization: pm.request.headers.get("Authorization") }
+      }, function (err, res) {
+          if (err) throw new Error("GET item failed: " + err);
+
+          const item = res.json();
+          const current = item.status;
+
+          pm.collectionVariables.set("regionCurrentStatus", current);
+          if (item.lastUpdateDate) {
+              pm.collectionVariables.set("lastUpdateDate", item.lastUpdateDate);
+          }
+
+          const allowed = transitions[current];
+
+          if (!allowed) {
+              throw new Error(`Unknown status value: "${current}"`);
+          }
+          if (allowed.length === 0) {
+              throw new Error(`Status is "${current}" — no transition allowed.`);
+          }
+
+          const next = allowed[0];
+          pm.collectionVariables.set("regionTargetStatus", next);
+      });
+    language: text/javascript
+  - type: afterResponse
+    code: |-
+      pm.test("სტატუს-კოდი 200/409", () => {
+          pm.expect(pm.response.code).to.be.oneOf([200, 409]);
+      });
+
+      pm.test("პასუხის დრო < 2000ms", () => {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+    language: text/javascript
+order: 4000
