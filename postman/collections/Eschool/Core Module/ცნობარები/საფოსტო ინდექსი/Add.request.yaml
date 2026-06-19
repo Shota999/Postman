@@ -1,4 +1,5 @@
 $kind: http-request
+name: Add
 url: "{{urlCore}}libraries/postal-codes"
 method: POST
 body:

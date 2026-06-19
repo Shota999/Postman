@@ -1,4 +1,5 @@
 $kind: http-request
+name: Eschool Login
 url: https://kc-test.emis.ge/realms/eschool-dev/protocol/openid-connect/token
 method: POST
 body:

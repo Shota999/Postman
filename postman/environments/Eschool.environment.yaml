@@ -48,8 +48,7 @@ values:
     value: ""
     enabled: true
   - key: lastUpdateDate
-    value: 18/05/2026 15:28:55
-    enabled: true
+    value: '18/05/2026 15:28:55'
   - key: recourceCentersId
     value: "1520"
     enabled: true
@@ -63,13 +62,9 @@ values:
     value: "205232238"
     enabled: true
   - key: skipTokenCheck
-    value: "true"
-    enabled: true
+    value: 'true'
   - key: client_id
-    value: ""
-    enabled: true
+    value: ''
   - key: client_secret
-    value: ""
-    enabled: true
-createdAt: 2026-05-08T08:18:42.000Z
-updatedAt: 2026-06-18T18:51:13.000Z
+    value: ''
+color: 180
