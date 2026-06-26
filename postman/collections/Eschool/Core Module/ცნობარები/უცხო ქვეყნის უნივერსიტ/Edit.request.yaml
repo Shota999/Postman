@@ -1,5 +1,4 @@
 $kind: http-request
-name: Edit
 url: "{{urlCore}}libraries/foreign-university/{{itemLibraryId}}"
 method: PUT
 body:

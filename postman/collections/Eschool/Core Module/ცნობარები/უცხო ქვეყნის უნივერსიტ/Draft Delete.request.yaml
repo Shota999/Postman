@@ -1,5 +1,4 @@
 $kind: http-request
-name: Draft Delete
 url: "{{urlCore}}libraries/foreign-university/{{itemLibraryId}}"
 method: DELETE
 order: 4000

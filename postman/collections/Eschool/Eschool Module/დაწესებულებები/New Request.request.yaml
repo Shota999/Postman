@@ -1,0 +1,8 @@
+$kind: http-request
+url: "{{urlEschool}}institution/institutions?page=1&size=25&orderBy=dateAdded:desc"
+method: GET
+queryParams:
+  page: "1"
+  size: "25"
+  orderBy: dateAdded:desc
+order: 4000

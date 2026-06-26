@@ -1,5 +1,4 @@
 $kind: http-request
-name: Grid
 url: "{{urlCore}}libraries/bank?orderBy=id:asc"
 method: GET
 queryParams:

@@ -1,0 +1,13 @@
+$kind: http-request
+name: Grid
+url: "{{urlEschool}}student/pupils?page=1&size=25&orderBy=dateAdded:desc"
+method: GET
+queryParams:
+  page: "1"
+  size: "25"
+  orderBy: dateAdded:desc
+auth:
+  type: bearer
+  credentials:
+    token: "{{"
+order: 1000
