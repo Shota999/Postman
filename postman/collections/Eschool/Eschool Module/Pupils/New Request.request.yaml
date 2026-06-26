@@ -1,4 +1,5 @@
 $kind: http-request
 name: New Request
-url: "{{urlEschool}}student/pupils"
+url: ""
 method: GET
+order: 194574855177148

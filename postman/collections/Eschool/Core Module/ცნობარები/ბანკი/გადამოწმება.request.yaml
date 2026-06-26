@@ -1,8 +1,4 @@
 $kind: http-request
-<<<<<<< HEAD
-=======
-name: გადამოწმება
->>>>>>> 22bc95358f4816c7b6a4e4bc0297199f25486611
 url: "{{urlCore}}libraries/bank/napr?code=205232238"
 method: GET
 queryParams:

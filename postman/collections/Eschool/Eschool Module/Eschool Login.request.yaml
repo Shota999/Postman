@@ -1,5 +1,4 @@
 $kind: http-request
-name: Eschool Login
 url: https://kc-test.emis.ge/realms/eschool-dev/protocol/openid-connect/token
 method: POST
 body:
@@ -35,8 +34,4 @@ scripts:
 
       pm.environment.set(\"password\", \"asernasib1\");"
     language: text/javascript
-<<<<<<< HEAD
 order: 4000
-=======
-order: 3000
->>>>>>> 22bc95358f4816c7b6a4e4bc0297199f25486611
