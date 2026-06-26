@@ -1,4 +1,5 @@
 $kind: collection
+name: Eschool
 variables:
   - key: urlEschool
     value: ""
@@ -134,5 +135,11 @@ variables:
     value: ""
     secret: false
   - key: postalAddress
+    value: ""
+    secret: false
+  - key: itemLibraryId
+    value: ""
+    secret: false
+  - key: lastUpdateDate
     value: ""
     secret: false

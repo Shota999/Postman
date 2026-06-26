@@ -1,75 +1,47 @@
-owner: "36570671"
-team: "9764292"
-lastUpdatedBy: "36570671"
-lastRevision: 1782383911000
 name: Eschool
-color: 180
 values:
   - key: urlEschool
-    value: https://eschool-api.dev.ol.ge/
-    enabled: true
+    value: 'https://eschool-api.dev.ol.ge/'
   - key: urlCore
-    value: https://eschool-core-api.dev.ol.ge/core/
-    enabled: true
+    value: 'https://eschool-core-api.dev.ol.ge/core/'
   - key: eschoolToken
-    value: ""
-    enabled: true
+    value: ''
   - key: coreToken
-    value: ""
-    enabled: true
+    value: ''
   - key: grant_type
     value: password
-    enabled: true
   - key: client_id(Eschool)
     value: eschool
-    enabled: true
   - key: client_secret(Eschool)
-    value: ""
-    enabled: true
+    value: ''
   - key: username
-    value: ""
-    enabled: true
+    value: ''
   - key: password
-    value: ""
-    enabled: true
+    value: ''
   - key: eschoolTokenExpiry
-    value: "1780492643008"
-    enabled: true
+    value: '1780492643008'
   - key: itemId
-    value: "1401"
-    enabled: true
+    value: '1401'
   - key: coreTokenExpiry
     value: 1780988447202
-    enabled: true
   - key: client_id(Core)
     value: core
-    enabled: true
   - key: client_secret(Core)
-    value: ""
-    enabled: true
+    value: ''
   - key: lastUpdateDate
-    value: 18/05/2026 15:28:55
-    enabled: true
+    value: '18/05/2026 15:28:55'
   - key: recourceCentersId
-    value: "1520"
-    enabled: true
+    value: '1520'
   - key: itemLibraryId
-    value: "1031"
-    enabled: true
+    value: '1031'
   - key: bankName
     value: სს კრედო ბანკი
-    enabled: true
   - key: bankCode
-    value: "205232238"
-    enabled: true
+    value: '205232238'
   - key: skipTokenCheck
-    value: "true"
-    enabled: true
+    value: 'true'
   - key: client_id
-    value: ""
-    enabled: true
+    value: ''
   - key: client_secret
-    value: ""
-    enabled: true
-createdAt: 2026-05-08T08:18:42.000Z
-updatedAt: 2026-06-25T10:38:31.000Z
+    value: ''
+color: 180

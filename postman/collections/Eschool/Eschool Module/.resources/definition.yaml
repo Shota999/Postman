@@ -1,4 +1,5 @@
 $kind: collection
+name: Eschool Module
 scripts:
   - type: http:beforeRequest
     code: "let body = {\r
@@ -61,7 +62,7 @@ scripts:
 
       \r
 
-      \        console.log(\"Status:\", res.code);\r
+      \        // console.log(\"Status:\", res.code);\r
 
       \        // console.log(\"Body:\", res.text());\r
 
@@ -105,7 +106,7 @@ scripts:
 
       \    const token = pm.environment.get('eschoolToken');\r
 
-      \    console.log(\"ტოკენი ვალიდურია:\", token);\r
+      \    // console.log(\"ტოკენი ვალიდურია:\", token);\r
 
       \r
 
