@@ -23,6 +23,10 @@ scripts:
 
       pm.collectionVariables.set("postalCode", suffix);
       pm.collectionVariables.set("postalAddress", "ავტოტესტ_მისამართი_edit_" + suffix);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 22bc95358f4816c7b6a4e4bc0297199f25486611
     language: text/javascript
   - type: afterResponse
     code: |-

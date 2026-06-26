@@ -1,4 +1,5 @@
 $kind: collection
+name: Eschool
 variables:
   - key: urlEschool
     value: ""
@@ -68,6 +69,7 @@ variables:
     value: ""
     secret: false
   - key: currencySymbol
+<<<<<<< HEAD
     value: ""
     secret: false
   - key: currencyName
@@ -134,5 +136,82 @@ variables:
     value: ""
     secret: false
   - key: postalAddress
+=======
+    value: ""
+    secret: false
+  - key: currencyName
+    value: ""
+    secret: false
+  - key: currencyNameEn
+    value: ""
+    secret: false
+  - key: rcName
+    value: ""
+    secret: false
+  - key: rcNameEn
+    value: ""
+    secret: false
+  - key: rcAddressKa
+    value: ""
+    secret: false
+  - key: rcAddressEn
+    value: ""
+    secret: false
+  - key: rcPhoneNumber
+    value: ""
+    secret: false
+  - key: rcMobileNumber
+    value: ""
+    secret: false
+  - key: rcEmail
+    value: ""
+    secret: false
+  - key: rcCode
+    value: ""
+    secret: false
+  - key: regionId
+    value: ""
+    secret: false
+  - key: rcTargetStatus
+    value: ""
+    secret: false
+  - key: rcExpectedStatus
+    value: ""
+    secret: false
+  - key: regionCurrentStatus
+    value: ""
+    secret: false
+  - key: regionTargetStatus
+    value: ""
+    secret: false
+  - key: bankSwiftCode
+    value: ""
+    secret: false
+  - key: bankIban
+    value: ""
+    secret: false
+  - key: bankTargetStatus
+    value: ""
+    secret: false
+  - key: currencyCurrentStatus
+    value: ""
+    secret: false
+  - key: currencyTargetStatus
+    value: ""
+    secret: false
+  - key: postalCode
+    value: ""
+    secret: false
+  - key: postalAddress
+    value: ""
+    secret: false
+  - key: itemLibraryId
+    value: ""
+    secret: false
+  - key: postalCurrentStatus
+    value: ""
+    secret: false
+  - key: lastUpdateDate
+>>>>>>> 22bc95358f4816c7b6a4e4bc0297199f25486611
     value: ""
     secret: false

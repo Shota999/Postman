@@ -1,4 +1,8 @@
 $kind: http-request
+<<<<<<< HEAD
+=======
+name: Grid
+>>>>>>> 22bc95358f4816c7b6a4e4bc0297199f25486611
 url: "{{urlCore}}libraries/bank?orderBy=id:asc"
 method: GET
 queryParams:
