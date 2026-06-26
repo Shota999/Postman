@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{urlEschool}}student/pupils/resident/check"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"identificationNumber\": \"01012013006\",\r
+
+    \    \"lastName\": \"ბახტაძე\"\r
+
+    }"
+order: 2000

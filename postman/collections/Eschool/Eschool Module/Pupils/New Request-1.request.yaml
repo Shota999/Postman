@@ -1,0 +1,10 @@
+$kind: http-request
+name: New Request
+url: student/pupils?page=1&size=25&search=%E1%83%9B%E1%83%90%E1%83%A0%E1%83%A5%E1%83%90&orderBy=dateAdded:desc
+method: GET
+queryParams:
+  page: "1"
+  size: "25"
+  search: "%E1%83%9B%E1%83%90%E1%83%A0%E1%83%A5%E1%83%90"
+  orderBy: dateAdded:desc
+order: 2719492732879639

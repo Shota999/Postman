@@ -1,5 +1,4 @@
 $kind: collection
-name: Eschool Module
 scripts:
   - type: http:beforeRequest
     code: "let body = {\r
