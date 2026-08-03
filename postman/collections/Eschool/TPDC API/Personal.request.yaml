@@ -1,0 +1,9 @@
+$kind: http-request
+name: Personal
+url: "{{url}}/tpdc/get_personal?key={{key}}&limit={{limit}}&offset={{offset}}"
+method: GET
+queryParams:
+  key: "{{key}}"
+  limit: "{{limit}}"
+  offset: "{{offset}}"
+order: 3717163254808924

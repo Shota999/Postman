@@ -1,0 +1,34 @@
+$kind: http-request
+name: Api Token
+url: https://kc-test.emis.ge/realms/eschool-dev/protocol/openid-connect/token
+method: POST
+body:
+  type: urlencoded
+  content:
+    grant_type: client_credentials
+    client_id: aser-api
+    client_secret: kpAXMb37JQj5ieUOSwJhVt5UIXq6SzTa
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: "let response = pm.response.json();\r
+
+      let token = response.access_token;\r
+
+      \r
+
+      pm.environment.set(\"apiToken\", token);"
+    language: text/javascript
+  - type: beforeRequest
+    code: "pm.environment.set(\"grant_type\", \"password\");\r
+
+      pm.environment.set(\"client_id(Eschool)\", \"eschool\");\r
+
+      pm.environment.set(\"client_secret(Eschool)\", \"Am6OIRxIRNpSz4bX7UBVbhPvQUiKmXNC\");\r
+
+      pm.environment.set(\"username\", \"asernasib\");\r
+
+      pm.environment.set(\"password\", \"asernasib1\");"
+    language: text/javascript
+order: 4301562345414515

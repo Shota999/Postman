@@ -1,0 +1,20 @@
+$kind: http-request
+name: Persons sync
+url: https://eschool-core-api.dev.ol.ge/person/api/v1.0/persons/synced/resident
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"identificationNumber\": \"01011084099\",\r
+
+    \    \"lastName2\": \"string\",\r
+
+    \    \"birthYear\": 1999\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{apiToken}}"
+order: 4220286031364221

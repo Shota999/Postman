@@ -11,4 +11,6 @@ localResources:
 cloudResources:
   collections:
     ../postman/collections/Eschool: 36570671-08f6d4d2-ba36-4f92-acdb-9f93c58bf3ad
-  environments: {}
+  environments:
+    ../postman/environments/Eschool.environment.yaml: 36570671-04adcc9c-970b-4b2d-b62f-8c70ff2b52c1
+    ../postman/environments/TPDC-1.environment.yaml: 36570671-1925cb27-b0bd-4619-8df3-d25abc32f1f3

@@ -1,0 +1,10 @@
+$kind: http-request
+name: Schools
+url: "{{url}}/tpdc/get_tpdc_schools?key={{key}}"
+method: GET
+queryParams:
+  key: "{{key}}"
+body:
+  type: json
+  content: ""
+order: 2000

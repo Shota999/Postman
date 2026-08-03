@@ -1,0 +1,24 @@
+$kind: http-request
+name: New Request
+url: https://tpdc-service.dev01.dev.emis.ge/tpdc/get_personal?limit=500&offset=0&key=1064dbc3a74739fdf8b0183c387e6803&personalNo=01022009439
+method: GET
+queryParams:
+  - key: limit
+    value: "500"
+    disabled: false
+    description: ""
+  - key: offset
+    value: "0"
+    disabled: false
+    description: ""
+  - key: key
+    value: 1064dbc3a74739fdf8b0183c387e6803
+    disabled: false
+    description: ""
+  - key: personalNo
+    value: "01022009439"
+    disabled: false
+    description: ""
+body:
+  type: urlencoded
+order: 4402119685195540

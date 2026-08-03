@@ -1,0 +1,10 @@
+$kind: http-request
+name: Resourscenters
+url: "{{url}}/tpdc/get_resource_centers?key={{key}}"
+method: GET
+queryParams:
+  key: "{{key}}"
+body:
+  type: json
+  content: ""
+order: 1675
